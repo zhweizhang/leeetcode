@@ -1,6 +1,6 @@
 public class Solution {
     
-    public static int MaxValue = 10000000; 
+    public static int MaxValue = Integer.Max_Value; 
     public static int[][] f = new int[1000][10000];
     
     public int slove(int idx, int[] coins, int amount) {
@@ -16,7 +16,7 @@ public class Solution {
             return MaxValue;
         }
         
-        if (f[idx % 2][amount] >= 0) {
+        if (f[idx % 2][amount] < MaxValue) {
             return f[idx % 2][amount];
         }
         
@@ -30,7 +30,7 @@ public class Solution {
     public int coinChange(int[] coins, int amount) {
         for (int idx = 0; idx < 1000; idx++) {
             for (int j = 0; j < 10000; j++) {
-                f[idx % 2][j] = -1;
+                f[idx % 2][j] = MaxValue;
             }
         }
         
