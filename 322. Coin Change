@@ -1,0 +1,45 @@
+public class Solution {
+    
+    public static int MaxValue = 10000000; 
+    public static int[][] f = new int[1000][10000];
+    
+    public int slove(int idx, int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
+        
+        if (amount < 0) {
+            return MaxValue;
+        }
+        
+        if (idx >= coins.length) {
+            return MaxValue;
+        }
+        
+        if (f[idx % 2][amount] >= 0) {
+            return f[idx % 2][amount];
+        }
+        
+        int a = slove(idx, coins, amount - coins[idx]) + 1;
+        int b = slove(idx + 1, coins, amount);
+        f[idx % 2][amount] = Math.min(a, b);
+        
+        return Math.min(a , b);
+    }
+    
+    public int coinChange(int[] coins, int amount) {
+        for (int idx = 0; idx < 1000; idx++) {
+            for (int j = 0; j < 10000; j++) {
+                f[idx % 2][j] = -1;
+            }
+        }
+        
+        int res = slove(0, coins, amount);
+        
+        if (res < MaxValue) {
+            return res;
+        } else {
+            return -1;
+        }
+    }
+}
