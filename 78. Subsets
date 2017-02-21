@@ -1,0 +1,27 @@
+public class Solution {
+    public static boolean[] v = new boolean[100];
+    public static List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    
+    public void robot(int idx, int[] nums) {
+        List<Integer> res = new ArrayList<Integer>();
+        if (idx >= nums.length) {
+            for (int i = 0; i < nums.length; i++) {
+                if (v[i]) {
+                    res.add(nums[i]);
+                }
+            }
+            ans.add(res);
+            return; 
+        }
+        v[idx] = true;
+        robot(idx + 1, nums);
+        v[idx] = false;
+        robot(idx + 1, nums);
+    }
+    
+    public List<List<Integer>> subsets(int[] nums) {
+        ans.clear();
+        robot(0, nums);
+        return ans;
+    }
+}
